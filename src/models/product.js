@@ -77,4 +77,18 @@ class Product {
         return rows[0] || null;
     }
 
-}
+    static async getInventory(productId){
+        if (!productId || isNaN(productId)) {
+            throw new Error ('Invalid product ID');
+        }
+
+        const [rows] = await pool.query(
+            `SELECT product_id, supplier_id, quantity, last_updated
+                FROM inventory
+                WHERE product_id = ?`,
+            [productId]
+        );
+        return rows[0] || null;
+    }
+    }
+export default Product;
