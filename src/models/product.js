@@ -49,4 +49,17 @@ class Product {
 
 
     }
+
+    static async getAll(){
+        const [rows] = await pool.query('SELECT * FROM Products ORDER BY product_id');
+        return rows;
+    }
+
+    static async getById(productId){
+        if (!productId || isNaN(productId)) {
+            throw new Error ('Invalid product ID');
+        }   
+        const [rows] = await pool.query('SELECT * FROM Products WHERE product_id = ?', [productId]);
+        return rows[0] || null;
+    }
 }
