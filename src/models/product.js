@@ -18,6 +18,13 @@ class Product {
 
             await connection.beginTransaction();
             
+            const [ProductResult] = await connection.query(
+                'INSERT INTO Products (Product_name, description, price) VALUES (?, ?, ?)',
+                [Product_name, description || '', price]
+            );
+            
+            const productId = ProductResult.insertId;
+            
         } catch (error) {
             await connection.rollback();
             throw error;
