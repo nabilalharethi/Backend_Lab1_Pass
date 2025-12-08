@@ -62,4 +62,19 @@ class Product {
         const [rows] = await pool.query('SELECT * FROM Products WHERE product_id = ?', [productId]);
         return rows[0] || null;
     }
+
+    static async getSuppliers(productId){
+        if (!productId || isNaN(productId)) {
+            throw new Error ('Invalid product ID');
+        }
+        const [rows] = await pool.query(
+            `SELECT s.supplier_id, s.supplier_name, s.contact_info
+             FROM suppliers s
+             INNER JOIN inventory i ON s.supplier_id = i.supplier_id
+             WHERE i.product_id = ?`,
+            [productId]
+        );
+        return rows[0] || null;
+    }
+
 }
