@@ -24,12 +24,29 @@ class Product {
             );
             
             const productId = ProductResult.insertId;
-            
+
+            if (supplier_id && quantity !== undefined) {
+                if (isNaN(supplier_id) || supplier_id < 0){
+                    throw new Error('supplier_id must be a valid positive number');
+                }
+
+                await connection.query(
+                    'INSERT INTO Product_Suppliers (product_id, supplier_id, quantity) VALUES (?, ?, ?)',
+                    [productId, supplier_id, quantity || 0]
+                );
+            }
+
+            await connection.commit();
+            return productId;
+
+
         } catch (error) {
             await connection.rollback();
             throw error;
         } finally {
             connection.release();
         }
+
+
     }
 }
