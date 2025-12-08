@@ -19,7 +19,7 @@ class Product {
             await connection.beginTransaction();
             
             const [ProductResult] = await connection.query(
-                'INSERT INTO Products (Product_name, description, price) VALUES (?, ?, ?)',
+                'INSERT INTO product (Product_name, description, price) VALUES (?, ?, ?)',
                 [Product_name, description || '', price]
             );
             
@@ -31,7 +31,7 @@ class Product {
                 }
 
                 await connection.query(
-                    'INSERT INTO Product_Suppliers (product_id, supplier_id, quantity) VALUES (?, ?, ?)',
+                    'INSERT INTO inventory (product_id, supplier_id, quantity) VALUES (?, ?, ?)',
                     [productId, supplier_id, quantity || 0]
                 );
             }
@@ -51,7 +51,7 @@ class Product {
     }
 
     static async getAll(){
-        const [rows] = await pool.query('SELECT * FROM Products ORDER BY product_id');
+        const [rows] = await pool.query('SELECT * FROM product ORDER BY product_id');
         return rows;
     }
 
@@ -59,7 +59,7 @@ class Product {
         if (!productId || isNaN(productId)) {
             throw new Error ('Invalid product ID');
         }   
-        const [rows] = await pool.query('SELECT * FROM Products WHERE product_id = ?', [productId]);
+        const [rows] = await pool.query('SELECT * FROM product WHERE product_id = ?', [productId]);
         return rows[0] || null;
     }
 
@@ -69,7 +69,7 @@ class Product {
         }
         const [rows] = await pool.query(
             `SELECT s.supplier_id, s.supplier_name, s.contact_info
-             FROM suppliers s
+             FROM supplier s
              INNER JOIN inventory i ON s.supplier_id = i.supplier_id
              WHERE i.product_id = ?`,
             [productId]

@@ -2,6 +2,7 @@ import mysql from 'mysql2/promise';
 import dotenv from 'dotenv';
 
 dotenv.config();
+console.log("ENV TEST:", process.env.DB_USER, process.env.DB_DATABASE);
 
 const pool = mysql.createPool({
     host: process.env.DB_HOST,
@@ -21,6 +22,8 @@ async function testConnection() {
         connection.release();
     }catch (error) {
         console.error('Data base is not working');
+        console.error(error.message);
+        console.error(error);
         process.exit(1);
     }
     
