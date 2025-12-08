@@ -12,5 +12,17 @@ class Product {
         if (isNaN(price) || price < 0 ) {
             throw new Error ('price must be a valid positive number');
         }
+
+        const connection = await pool.getConnection();
+        try {
+
+            await connection.beginTransaction();
+            
+        } catch (error) {
+            await connection.rollback();
+            throw error;
+        } finally {
+            connection.release();
+        }
     }
 }
