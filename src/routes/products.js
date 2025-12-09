@@ -54,3 +54,16 @@ router.get('/:id/inventory', async (req, res) => {
         res.status(400).json({ error: 'Invalid product ID' });
     }
 });
+
+
+router.post('/', async (req, res) => {
+    try {
+        const { productName, description, price, supplier_id,quantity } = req.body;
+        const ProductId = await Product.create({ productName, description, price, supplier_id, quantity } );
+
+        res.status(201).json({ message: 'Product created successfully', productId: ProductId });
+    } catch (error) {
+        console.error('Error creating product:', error.message);
+        res.status(400).json({ error: error.message });
+    }
+});
