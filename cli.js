@@ -114,3 +114,41 @@ async function getProductInventory() {
         console.error('Error fetching inventory details:', error.message);
     }
 }
+
+async function main() {
+    await testConnection();
+    let running = true;
+
+    while (running) {
+        await showMenu();
+        const choice = await question('Select an option (1-6): ');
+        switch (choice) {
+            case '1':
+                await createProduct();
+                break;
+            case '2':
+                await listAllProducts();
+                break;
+            case '3':
+                await getProductById();
+                break;
+            case '4':
+                await getProductSuppliers();    
+                break;
+            case '5':
+                await getProductInventory();    
+                break;
+            case '6':
+                running = false;
+                break;
+            default:
+                console.log('Invalid option. Please try again.');
+        }
+    }
+
+    rl.close();
+    await pool.end();
+    console.log('Exiting Product Management CLI. Goodbye!');
+    process.exit(0);
+}
+main();
