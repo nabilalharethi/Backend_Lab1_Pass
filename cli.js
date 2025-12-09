@@ -23,3 +23,25 @@ async function showMenu() {
     console.log('6. Exit');
     console.log('==============================');
 }
+
+async function createProduct() {
+    console.log('\n--- Create New Product ---');
+    const Product_name = await question('Product Name: ');
+    const description = await question('Description: ');
+    const price = await question('Price: ');
+    const supplier_id = await question('Supplier ID (optional): ');
+    const quantity = await question('Quantity (optional): ');
+
+    try {
+        const productId = await Product.create({
+            Product_name,
+            description,
+            price: parseFloat(price),
+            supplier_id: supplier_id ? parseInt(supplier_id) : null,
+            quantity: quantity ? parseInt(quantity) : 0
+        });
+        console.log(`Product created with ID: ${productId}`);
+    } catch (error) {
+        console.error('Error creating product:', error.message);
+    }
+}
