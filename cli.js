@@ -97,3 +97,20 @@ async function getProductSuppliers() {
         console.error('Error fetching supplier details:', error.message);
     }
 }
+
+async function getProductInventory() {
+    const id = await question('Enter Product ID: ');
+    try {
+        const inventory = await Product.getInventory(parseInt(id));
+        if (!inventory) {
+            console.log('No inventory found for this product.');
+        } else {
+            console.log(`\n--- Inventory Details for Product ID: ${id} ---`);
+            console.log(`Supplier ID: ${inventory.supplier_id}`);
+            console.log(`Quantity: ${inventory.quantity}`);
+            console.log(`Last Restock Date: ${inventory.last_restock_date}`);
+        }
+    } catch (error) {
+        console.error('Error fetching inventory details:', error.message);
+    }
+}
