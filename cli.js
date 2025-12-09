@@ -45,3 +45,20 @@ async function createProduct() {
         console.error('Error creating product:', error.message);
     }
 }
+
+async function listAllProducts() {
+    try {
+        const products = await Product.getAll();
+        console.log('\n--- All Products ---');
+        if (products.length === 0) {
+            console.log('No products found.');
+        } else {
+            products.forEach(prod => {
+                console.log(`ID: ${prod.product_id}, Name: ${prod.Product_name}, Price: ${prod.price}`);
+                console.log('---------------------');
+            });
+        }
+    } catch (error) {
+        console.error('Error fetching products:', error.message);
+    }
+}
