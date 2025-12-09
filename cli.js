@@ -79,3 +79,21 @@ async function getProductById() {
         console.error('Error fetching product:', error.message);
     }
 }
+
+async function getProductSuppliers() {
+    const id = await question('Enter Product ID: ');
+    try {
+        const supplier = await Product.getSuppliers(parseInt(id));
+
+        if(!supplier){
+            console.log('No supplier found for this product.');
+        }  else {
+            console.log(`\n--- Supplier Details for Product ID: ${id} ---`);
+            console.log(`Supplier ID: ${supplier.supplier_id}`);
+            console.log(`Supplier Name: ${supplier.supplier_name}`);
+            console.log(`Contact Info: ${supplier.contact_info}`);
+        }
+    } catch (error) {
+        console.error('Error fetching supplier details:', error.message);
+    }
+}
