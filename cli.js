@@ -62,3 +62,20 @@ async function listAllProducts() {
         console.error('Error fetching products:', error.message);
     }
 }
+
+async function getProductById() {
+    const id = await question('Enter Product ID: ');
+    try {
+        const product = await Product.getById(parseInt(id));
+        if (!product) {
+            console.log('Product not found.');
+        } else {
+            console.log(`\n--- Product Details (ID: ${product.product_id}) ---`);
+            console.log(`Name: ${product.Product_name}`);
+            console.log(`Description: ${product.description}`);
+            console.log(`Price: ${product.price}`);
+        }
+    } catch (error) {
+        console.error('Error fetching product:', error.message);
+    }
+}
