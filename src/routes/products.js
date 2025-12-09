@@ -41,3 +41,16 @@ router.get('/:id/suppliers', async (req, res) => {
         res.status(400).json({ error: 'Invalid product ID' });
     }
 });
+
+router.get('/:id/inventory', async (req, res) => {
+    try {
+        const inventory = await Product.getInventory(req.params.id);
+        if (!inventory) {
+            return res.status(404).json({ error: 'No inventory found for this product' });
+        } 
+        res.json(inventory);
+    } catch (error) {
+        console.error('Error fetching inventory:', error.message);
+        res.status(400).json({ error: 'Invalid product ID' });
+    }
+});
