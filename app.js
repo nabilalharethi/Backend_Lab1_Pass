@@ -36,3 +36,13 @@ app.use((err, req, res, next) => {
     console.error( err.stack);
     res.status(500).json({ error: 'Internal Server Error' });
 });
+
+
+async function startServer() {
+    await testConnection();
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+        console.log(`API  available at http://localhost:${PORT}/api/products`);
+    });
+    }
+startServer();
