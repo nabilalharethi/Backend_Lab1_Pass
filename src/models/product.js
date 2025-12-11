@@ -3,9 +3,9 @@ import {pool} from '../config/database.js';
 
 class Product {
     static async create(ProductData){
-        const { Product_name , description, price, supplier_id, quantity} = ProductData;
+        const { product_name , description, price, supplier_id, quantity} = ProductData;
 
-        if(!Product_name || !price) {
+        if(!product_name || !price) {
             throw new Error('Product name and price are required');
         }
 
@@ -19,8 +19,8 @@ class Product {
             await connection.beginTransaction();
             
             const [ProductResult] = await connection.query(
-                'INSERT INTO product (Product_name, description, price) VALUES (?, ?, ?)',
-                [Product_name, description || '', price]
+                'INSERT INTO product (product_name, description, price) VALUES (?, ?, ?)',
+                [product_name, description || '', price]
             );
             
             const productId = ProductResult.insertId;

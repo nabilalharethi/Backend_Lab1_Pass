@@ -26,7 +26,7 @@ async function showMenu() {
 
 async function createProduct() {
     console.log('\n--- Create New Product ---');
-    const Product_name = await question('Product Name: ');
+    const product_name = await question('Product Name: ');
     const description = await question('Description: ');
     const price = await question('Price: ');
     const supplier_id = await question('Supplier ID (optional): ');
@@ -34,7 +34,7 @@ async function createProduct() {
 
     try {
         const productId = await Product.create({
-            Product_name,
+            product_name,
             description,
             price: parseFloat(price),
             supplier_id: supplier_id ? parseInt(supplier_id) : null,
@@ -54,7 +54,7 @@ async function listAllProducts() {
             console.log('No products found.');
         } else {
             products.forEach(prod => {
-                console.log(`ID: ${prod.product_id}, Name: ${prod.Product_name}, Price: ${prod.price}`);
+                console.log(`ID: ${prod.product_id}, Name: ${prod.product_name}, Price: ${prod.price}`);
                 console.log('---------------------');
             });
         }
@@ -71,7 +71,7 @@ async function getProductById() {
             console.log('Product not found.');
         } else {
             console.log(`\n--- Product Details (ID: ${product.product_id}) ---`);
-            console.log(`Name: ${product.Product_name}`);
+            console.log(`Name: ${product.product_name}`);
             console.log(`Description: ${product.description}`);
             console.log(`Price: ${product.price}`);
         }
