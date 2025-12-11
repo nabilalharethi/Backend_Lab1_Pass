@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const products = await Product.getAll();
         res.json(products);
@@ -58,8 +58,8 @@ router.get('/:id/inventory', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const { productName, description, price, supplier_id,quantity } = req.body;
-        const ProductId = await Product.create({ productName, description, price, supplier_id, quantity } );
+        const { Product_name, description, price, supplier_id,quantity } = req.body;
+        const ProductId = await Product.create({ Product_name, description, price, supplier_id, quantity } );
 
         res.status(201).json({ message: 'Product created successfully', productId: ProductId });
     } catch (error) {
