@@ -1,6 +1,6 @@
 import readline from 'readline';
-import {testConnection, pool} from './config/database.js';
-import Product from './models/product.js';
+import {testConnection, pool} from './src/config/database.js';
+import Product from './src/models/product.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
