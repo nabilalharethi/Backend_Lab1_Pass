@@ -108,7 +108,7 @@ async function getProductInventory() {
             console.log(`\n--- Inventory Details for Product ID: ${id} ---`);
             console.log(`Supplier ID: ${inventory.supplier_id}`);
             console.log(`Quantity: ${inventory.quantity}`);
-            console.log(`Last Restock Date: ${inventory.last_restock_date}`);
+            console.log(`Last Restock Date: ${inventory.last_updated}`);
         }
     } catch (error) {
         console.error('Error fetching inventory details:', error.message);
